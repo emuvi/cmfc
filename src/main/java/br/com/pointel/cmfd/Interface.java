@@ -698,11 +698,12 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtRootOpenActionPerformed
 
     private void jbtDestinySelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDestinySelectActionPerformed
-        openFolder(jtfDesitny);
+        
+        openFolder(jtfDesitny, jtfRoot);
     }//GEN-LAST:event_jbtDestinySelectActionPerformed
 
     private void jbtDestinyOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDestinyOpenActionPerformed
-        openFolder(jtfDesitny);
+        openFolder(jtfDesitny, jtfRoot);
     }//GEN-LAST:event_jbtDestinyOpenActionPerformed
 
     private void jbtOriginSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtOriginSelectActionPerformed
@@ -822,22 +823,33 @@ public class Interface extends javax.swing.JFrame {
         Integer value = (Integer) jspIndexValue.getValue();
         jspIndexValue.setValue(value + 1);
     }
-
+    
     private void selectFolder(JTextField field) {
+        selectFolder(field, null);
+    }
+
+    private void selectFolder(JTextField field, JTextField rootField) {
         String text = field.getText();
+        String root = rootField != null ? rootField.getText() : "";
         File selected = null;
         if (!text.isEmpty()) {
-            selected = new File(text);
+            selected = root.isEmpty() ? new File(text) : new File(root, text);
         }
         selected = WizSwing.selectFolder(selected);
         field.setText(selected.getAbsolutePath());
     }
-
+    
     private void openFolder(JTextField field) {
+        openFolder(field, null);
+    }
+
+    private void openFolder(JTextField field, JTextField rootField) {
         String text = field.getText();
+        String root = rootField != null ? rootField.getText() : "";
         if (!text.isEmpty()) {
             try {
-                WizSwing.open(new File(text));
+                File file = root.isEmpty() ? new File(text) : new File(root, text);
+                WizSwing.open(file);
             } catch (Exception ex) {
                 WizSwing.showError(ex);
             }
