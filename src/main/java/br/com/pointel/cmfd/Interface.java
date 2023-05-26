@@ -682,7 +682,11 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtMountedBackActionPerformed
 
     private void jbtMountedAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMountedAddActionPerformed
-        jtfDesitny.setText(jtfMounted.getText());
+        jtfDesitny.setText(jtfMounted.getText()
+                .replace('/', '-')
+                .replace('\\', '-')
+                .replace(':', '-')
+                .replace('|', '-'));
     }//GEN-LAST:event_jbtMountedAddActionPerformed
 
     private void jcbAutoFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutoFolderActionPerformed
@@ -698,7 +702,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtRootOpenActionPerformed
 
     private void jbtDestinySelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDestinySelectActionPerformed
-        
+
         openFolder(jtfDesitny, jtfRoot);
     }//GEN-LAST:event_jbtDestinySelectActionPerformed
 
@@ -802,7 +806,7 @@ public class Interface extends javax.swing.JFrame {
     private void addOnRight(String part) {
         jtfMounted.setText(jtfMounted.getText() + part);
         parted.add(part);
-    }                                      
+    }
 
     private void addEquals(String part) {
         jtfMounted.setText(part);
@@ -823,7 +827,7 @@ public class Interface extends javax.swing.JFrame {
         Integer value = (Integer) jspIndexValue.getValue();
         jspIndexValue.setValue(value + 1);
     }
-    
+
     private void selectFolder(JTextField field) {
         selectFolder(field, null);
     }
@@ -838,7 +842,7 @@ public class Interface extends javax.swing.JFrame {
         selected = WizSwing.selectFolder(selected);
         field.setText(selected.getAbsolutePath());
     }
-    
+
     private void openFolder(JTextField field) {
         openFolder(field, null);
     }
