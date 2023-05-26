@@ -811,6 +811,7 @@ public class Interface extends javax.swing.JFrame {
         try {
             doFolder();
             doMove();
+            openFolder(jtfDesitny, jtfRoot);
         } catch (Exception e) {
             WizSwing.showError(e);
         }
