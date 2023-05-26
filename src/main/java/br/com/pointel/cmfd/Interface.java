@@ -141,6 +141,14 @@ public class Interface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CMFD");
         setLocationByPlatform(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jlbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTitle.setText("Copy and Mount for Desktop");
@@ -595,6 +603,38 @@ public class Interface extends javax.swing.JFrame {
     private void jcbAutoMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutoMoveActionPerformed
         autoMove.set(jcbAutoMove.isSelected());
     }//GEN-LAST:event_jcbAutoMoveActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            WizProps.load("CMFD");
+            jtfClipboard.setText(WizProps.getStr("clipboard"));
+            jtfDesitny.setText(WizProps.getStr("destiny"));
+            jtfMounted.setText(WizProps.getStr("mounted"));
+            jtfOrigin.setText(WizProps.getStr("origin"));
+            jtfRoot.setText(WizProps.getStr("root"));
+            jtfShortcut1.setText(WizProps.getStr("shortcut1"));
+            jtfShortcut2.setText(WizProps.getStr("shortcut2"));
+            jtfShortcut3.setText(WizProps.getStr("shortcut3"));
+        } catch (Exception ex) {
+            WizSwing.showError(ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            WizProps.setStr("clipboard", jtfClipboard.getText());
+            WizProps.setStr("destiny", jtfDesitny.getText());
+            WizProps.setStr("mounted", jtfMounted.getText());
+            WizProps.setStr("origin", jtfOrigin.getText());
+            WizProps.setStr("root", jtfRoot.getText());
+            WizProps.setStr("shortcut1", jtfShortcut1.getText());
+            WizProps.setStr("shortcut2", jtfShortcut2.getText());
+            WizProps.setStr("shortcut3", jtfShortcut3.getText());
+            WizProps.save("CMFD");
+        } catch (Exception ex) {
+            WizSwing.showError(ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     private void addOnLeft(String part) {
         jtfMounted.setText(part + jtfMounted.getText());
