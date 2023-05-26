@@ -132,7 +132,7 @@ public class Interface extends javax.swing.JFrame {
         jcbAutoPaste = new javax.swing.JCheckBox();
         jbtClipboardLeft = new javax.swing.JButton();
         jtfClipboard = new javax.swing.JTextField();
-        jbtClipboardCopy = new javax.swing.JButton();
+        jbtClipboardEquals = new javax.swing.JButton();
         jbtClipboardRight = new javax.swing.JButton();
         jbtShortcut1Left = new javax.swing.JButton();
         jtfShortcut1 = new javax.swing.JTextField();
@@ -169,6 +169,10 @@ public class Interface extends javax.swing.JFrame {
         jbtDoPaste = new javax.swing.JButton();
         jbtDoFolder = new javax.swing.JButton();
         jbtDoMove = new javax.swing.JButton();
+        jbtShortcut1Equals = new javax.swing.JButton();
+        jbtShortcut2Equals = new javax.swing.JButton();
+        jbtShortcut3Equals = new javax.swing.JButton();
+        jbtIndexEquals = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CMFD");
@@ -206,10 +210,10 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jbtClipboardCopy.setText("C");
-        jbtClipboardCopy.addActionListener(new java.awt.event.ActionListener() {
+        jbtClipboardEquals.setText("=");
+        jbtClipboardEquals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtClipboardCopyActionPerformed(evt);
+                jbtClipboardEqualsActionPerformed(evt);
             }
         });
 
@@ -391,6 +395,34 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        jbtShortcut1Equals.setText("=");
+        jbtShortcut1Equals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtShortcut1EqualsActionPerformed(evt);
+            }
+        });
+
+        jbtShortcut2Equals.setText("=");
+        jbtShortcut2Equals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtShortcut2EqualsActionPerformed(evt);
+            }
+        });
+
+        jbtShortcut3Equals.setText("=");
+        jbtShortcut3Equals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtShortcut3EqualsActionPerformed(evt);
+            }
+        });
+
+        jbtIndexEquals.setText("=");
+        jbtIndexEquals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtIndexEqualsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -401,7 +433,7 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jlbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jcbAlwaysOnTop)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jcbAutoPaste)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtDoPaste))
@@ -410,9 +442,9 @@ public class Interface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfClipboard)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtClipboardCopy)
+                        .addComponent(jbtClipboardRight)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtClipboardRight))
+                        .addComponent(jbtClipboardEquals))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -428,16 +460,28 @@ public class Interface extends javax.swing.JFrame {
                                     .addComponent(jbtShortcut3Left))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtfShortcut2)
                                     .addComponent(jtfShortcut1)
-                                    .addComponent(jtfShortcut3))))
+                                    .addComponent(jtfShortcut3)
+                                    .addComponent(jtfShortcut2))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jbtShortcut3Right, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jbtShortcut2Right, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jbtShortcut1Right, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jbtIndexRight, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jbtShortcut3Right)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jbtShortcut3Equals))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jbtShortcut2Right)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jbtShortcut2Equals))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jbtShortcut1Right)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jbtShortcut1Equals)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jbtIndexRight)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtIndexEquals))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -500,29 +544,33 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtClipboardRight)
-                    .addComponent(jbtClipboardCopy)
+                    .addComponent(jbtClipboardEquals)
                     .addComponent(jbtClipboardLeft))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfShortcut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtShortcut1Right)
-                    .addComponent(jbtShortcut1Left))
+                    .addComponent(jbtShortcut1Left)
+                    .addComponent(jbtShortcut1Equals))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfShortcut2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtShortcut2Right)
-                    .addComponent(jbtShortcut2Left))
+                    .addComponent(jbtShortcut2Left)
+                    .addComponent(jbtShortcut2Equals))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfShortcut3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtShortcut3Right)
-                    .addComponent(jbtShortcut3Left))
+                    .addComponent(jbtShortcut3Left)
+                    .addComponent(jbtShortcut3Equals))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtIndexLeft)
                     .addComponent(jspIndexFormat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jspIndexValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtIndexRight))
+                    .addComponent(jbtIndexRight)
+                    .addComponent(jbtIndexEquals))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtMountedClear)
@@ -574,10 +622,9 @@ public class Interface extends javax.swing.JFrame {
         addOnLeft(jtfClipboard.getText());
     }//GEN-LAST:event_jbtClipboardLeftActionPerformed
 
-    private void jbtClipboardCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClipboardCopyActionPerformed
-        jtfClipboard.selectAll();
-        jtfClipboard.copy();
-    }//GEN-LAST:event_jbtClipboardCopyActionPerformed
+    private void jbtClipboardEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClipboardEqualsActionPerformed
+        addEquals(jtfClipboard.getText());
+    }//GEN-LAST:event_jbtClipboardEqualsActionPerformed
 
     private void jbtClipboardRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClipboardRightActionPerformed
         addOnRight(jtfClipboard.getText());
@@ -730,6 +777,22 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtDoMoveActionPerformed
 
+    private void jbtShortcut1EqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut1EqualsActionPerformed
+        addEquals(jtfShortcut1.getText());
+    }//GEN-LAST:event_jbtShortcut1EqualsActionPerformed
+
+    private void jbtShortcut2EqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut2EqualsActionPerformed
+        addEquals(jtfShortcut2.getText());
+    }//GEN-LAST:event_jbtShortcut2EqualsActionPerformed
+
+    private void jbtShortcut3EqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut3EqualsActionPerformed
+        addEquals(jtfShortcut3.getText());
+    }//GEN-LAST:event_jbtShortcut3EqualsActionPerformed
+
+    private void jbtIndexEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIndexEqualsActionPerformed
+        addEquals(getIndexText());
+    }//GEN-LAST:event_jbtIndexEqualsActionPerformed
+
     private void addOnLeft(String part) {
         jtfMounted.setText(part + jtfMounted.getText());
         parted.add(part);
@@ -737,6 +800,11 @@ public class Interface extends javax.swing.JFrame {
 
     private void addOnRight(String part) {
         jtfMounted.setText(jtfMounted.getText() + part);
+        parted.add(part);
+    }                                      
+
+    private void addEquals(String part) {
+        jtfMounted.setText(part);
         parted.add(part);
     }
 
@@ -777,7 +845,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtClipboardCopy;
+    private javax.swing.JButton jbtClipboardEquals;
     private javax.swing.JButton jbtClipboardLeft;
     private javax.swing.JButton jbtClipboardRight;
     private javax.swing.JButton jbtDestinyOpen;
@@ -785,6 +853,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jbtDoFolder;
     private javax.swing.JButton jbtDoMove;
     private javax.swing.JButton jbtDoPaste;
+    private javax.swing.JButton jbtIndexEquals;
     private javax.swing.JButton jbtIndexLeft;
     private javax.swing.JButton jbtIndexRight;
     private javax.swing.JButton jbtMountedAdd;
@@ -795,10 +864,13 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jbtOriginSelect;
     private javax.swing.JButton jbtRootOpen;
     private javax.swing.JButton jbtRootSelect;
+    private javax.swing.JButton jbtShortcut1Equals;
     private javax.swing.JButton jbtShortcut1Left;
     private javax.swing.JButton jbtShortcut1Right;
+    private javax.swing.JButton jbtShortcut2Equals;
     private javax.swing.JButton jbtShortcut2Left;
     private javax.swing.JButton jbtShortcut2Right;
+    private javax.swing.JButton jbtShortcut3Equals;
     private javax.swing.JButton jbtShortcut3Left;
     private javax.swing.JButton jbtShortcut3Right;
     private javax.swing.JCheckBox jcbAlwaysOnTop;

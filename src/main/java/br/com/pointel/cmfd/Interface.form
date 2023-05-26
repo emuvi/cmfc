@@ -35,7 +35,7 @@
                   <Component id="jlbTitle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jcbAlwaysOnTop" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="76" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jcbAutoPaste" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtDoPaste" min="-2" max="-2" attributes="0"/>
@@ -45,9 +45,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jtfClipboard" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbtClipboardCopy" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtClipboardRight" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jbtClipboardEquals" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -66,20 +66,36 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfShortcut2" max="32767" attributes="0"/>
                                   <Component id="jtfShortcut1" max="32767" attributes="0"/>
                                   <Component id="jtfShortcut3" max="32767" attributes="0"/>
+                                  <Component id="jtfShortcut2" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jbtShortcut3Right" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jbtShortcut2Right" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jbtShortcut1Right" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jbtShortcut3Right" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jbtShortcut3Equals" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jbtShortcut2Right" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jbtShortcut2Equals" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jbtShortcut1Right" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jbtShortcut1Equals" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jbtIndexRight" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jbtIndexRight" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtIndexEquals" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -160,7 +176,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jtfClipboard" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtClipboardRight" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtClipboardCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtClipboardEquals" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtClipboardLeft" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -168,18 +184,21 @@
                   <Component id="jtfShortcut1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtShortcut1Right" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtShortcut1Left" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtShortcut1Equals" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jtfShortcut2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtShortcut2Right" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtShortcut2Left" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtShortcut2Equals" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jtfShortcut3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtShortcut3Right" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtShortcut3Left" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtShortcut3Equals" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -187,6 +206,7 @@
                   <Component id="jspIndexFormat" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jspIndexValue" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtIndexRight" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtIndexEquals" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -265,12 +285,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jtfClipboard">
     </Component>
-    <Component class="javax.swing.JButton" name="jbtClipboardCopy">
+    <Component class="javax.swing.JButton" name="jbtClipboardEquals">
       <Properties>
-        <Property name="text" type="java.lang.String" value="C"/>
+        <Property name="text" type="java.lang.String" value="="/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtClipboardCopyActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtClipboardEqualsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtClipboardRight">
@@ -506,6 +526,38 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDoMoveActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtShortcut1Equals">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="="/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtShortcut1EqualsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtShortcut2Equals">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="="/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtShortcut2EqualsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtShortcut3Equals">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="="/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtShortcut3EqualsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtIndexEquals">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="="/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtIndexEqualsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
