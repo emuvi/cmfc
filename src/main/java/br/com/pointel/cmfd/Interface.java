@@ -57,7 +57,7 @@ public class Interface extends javax.swing.JFrame {
                                 File folderOrigin = new File(origin);
                                 if (folderOrigin.isDirectory()) {
                                     File folderDestiny = getFolderDesitny();
-                                    if (folderDestiny != null && !folderDestiny.isDirectory()) {
+                                    if (folderDestiny != null && folderDestiny.isDirectory()) {
                                         for (var insideOrigin : folderOrigin.listFiles()) {
                                             File destiny = new File(folderDestiny, insideOrigin.getName());
                                             if (insideOrigin.isDirectory()) {
