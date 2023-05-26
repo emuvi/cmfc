@@ -3,7 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="CMFC"/>
+    <Property name="title" type="java.lang.String" value="CMFD"/>
     <Property name="locationByPlatform" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
@@ -25,14 +25,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jlbTitle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jcbAlwaysOnTop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="75" max="32767" attributes="0"/>
-                      <Component id="jcbCapture" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbAutoPaste" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jbtClipboardLeft" min="-2" max="-2" attributes="0"/>
@@ -77,13 +77,54 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jbtMountedClear" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jbtMountedClear" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtMountedBack" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jlbRoot" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlbDestiny" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlbOrigin" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbtMountedBack" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jtfMounted" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbtMountedCopy" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jtfRoot" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtRootSelect" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtRootOpen" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jtfMounted" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtMountedCopy" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtMountedAdd" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jtfDesitny" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtDestinySelect" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtDestinyOpen" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jtfOrigin" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtOriginSelect" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtOriginOpen" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jcbAutoFolder" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="jcbAutoMove" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -98,7 +139,7 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jcbAlwaysOnTop" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcbCapture" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbAutoPaste" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -138,6 +179,32 @@
                   <Component id="jtfMounted" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtMountedCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtMountedBack" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtMountedAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jcbAutoFolder" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jtfRoot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlbRoot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtRootSelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtRootOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jtfDesitny" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlbDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtDestinySelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtDestinyOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jcbAutoMove" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jbtOriginSelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtfOrigin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlbOrigin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtOriginOpen" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -148,7 +215,7 @@
     <Component class="javax.swing.JLabel" name="jlbTitle">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Copy and Mount for Clipboard"/>
+        <Property name="text" type="java.lang.String" value="Copy and Mount for Desktop"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jcbAlwaysOnTop">
@@ -159,12 +226,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbAlwaysOnTopActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jcbCapture">
+    <Component class="javax.swing.JCheckBox" name="jcbAutoPaste">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Capture"/>
+        <Property name="text" type="java.lang.String" value="Auto Paste"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbCaptureActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbAutoPasteActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtClipboardLeft">
@@ -301,6 +368,99 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtMountedCopyActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtMountedAdd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="="/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtMountedAddActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jcbAutoFolder">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Folder"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbAutoFolderActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbRoot">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Root"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtfRoot">
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtRootSelect">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="^"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtRootSelectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtRootOpen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="*"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtRootOpenActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbDestiny">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Destiny"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtfDesitny">
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtDestinySelect">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="^"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDestinySelectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtDestinyOpen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="*"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDestinyOpenActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jcbAutoMove">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Move"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbAutoMoveActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbOrigin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Origin"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtfOrigin">
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtOriginSelect">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="^"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtOriginSelectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtOriginOpen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="*"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtOriginOpenActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

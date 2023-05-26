@@ -1,6 +1,6 @@
-package br.com.pointel.cmfc;
+package br.com.pointel.cmfd;
 
-public class CMFC {
+public class CMFD {
 
     public static void main(String[] args) throws Exception {
         Interface.start(args);

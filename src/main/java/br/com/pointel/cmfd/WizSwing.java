@@ -1,9 +1,12 @@
-package br.com.pointel.cmfc;
+package br.com.pointel.cmfd;
 
+import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class WizSwing {
@@ -29,6 +32,34 @@ public class WizSwing {
             }
         }
         return null;
+    }
+    
+    public static File selectFolder(File selected) {
+        return select(selected, JFileChooser.DIRECTORIES_ONLY);
+    }
+    
+    public static File selectFile(File selected) {
+        return select(selected, JFileChooser.FILES_ONLY);
+    }
+    
+    public static File select(File selected) {
+        return select(selected, JFileChooser.FILES_AND_DIRECTORIES);
+    }
+    
+    public static File select(File selected, int kind) {
+        var chooser = new JFileChooser();
+        chooser.setFileSelectionMode(kind);
+        if (selected != null) {
+            chooser.setSelectedFile(selected);
+        }
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return chooser.getSelectedFile();
+        }
+        return null;
+    }
+    
+    public static void open(File file) throws Exception {
+        Desktop.getDesktop().open(file);
     }
     
 }
