@@ -2,6 +2,10 @@ package br.com.pointel.cmfd;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import java.io.File;
+import java.io.RandomAccessFile;
+import static java.lang.Thread.sleep;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,68 +34,93 @@ public class Interface extends javax.swing.JFrame {
             public void run() {
                 while (true) {
                     try {
-                        sleep(500);
+                        sleep(700);
                         if (autoPaste.get()) {
-                            String testing = WizSwing.getStringOnClipboard();
-                            if (testing != null) {
-                                testing = testing.replaceAll("\\s+", " ");
-                                final String clipboard = testing.trim();
-                                if (!clipboard.isEmpty()) {
-                                    SwingUtilities.invokeAndWait(() -> {
-                                        if (!jtfClipboard.getText().equals(clipboard)) {
-                                            jtfClipboard.setText(clipboard);
-                                        }
-                                    });
-                                }
-                            }
+                            doPaste();
                         }
                         if (autoFolder.get()) {
-                            File folderDestiny = getFolderDesitny();
-                            if (folderDestiny != null && !folderDestiny.exists()) {
-                                Files.createDirectories(folderDestiny.toPath());
-                            }
+                            doFolder();
                         }
                         if (autoMove.get()) {
-                            String origin = jtfOrigin.getText();
-                            if (!origin.isEmpty()) {
-                                File folderOrigin = new File(origin);
-                                if (folderOrigin.isDirectory()) {
-                                    File folderDestiny = getFolderDesitny();
-                                    if (folderDestiny != null && folderDestiny.isDirectory()) {
-                                        for (var insideOrigin : folderOrigin.listFiles()) {
-                                            File destiny = new File(folderDestiny, insideOrigin.getName());
-                                            if (insideOrigin.isDirectory()) {
-                                                FileUtils.moveDirectory(insideOrigin, destiny);
-                                            } else {
-                                                FileUtils.moveFile(insideOrigin, destiny);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            doMove();
                         }
                     } catch (Exception e) {
-                        WizSwing.showError(e);
+                        e.printStackTrace();
                     }
                 }
             }
 
-            private File getFolderDesitny() {
-                String destiny = jtfDesitny.getText();
-                if (!destiny.isEmpty()) {
-                    String root = jtfRoot.getText();
-                    File folderRoot = root.isEmpty() ? null : new File(root);
-                    File folderDestiny;
-                    if (folderRoot != null) {
-                        folderDestiny = new File(folderRoot, destiny);
-                    } else {
-                        folderDestiny = new File(destiny);
-                    }
-                    return folderDestiny;
-                }
-                return null;
-            }
         }.start();
+    }
+
+    private void doPaste() throws Exception {
+        String testing = WizSwing.getStringOnClipboard();
+        if (testing != null) {
+            testing = testing.replaceAll("\\s+", " ");
+            final String clipboard = testing.trim();
+            if (!clipboard.isEmpty()) {
+                SwingUtilities.invokeAndWait(() -> {
+                    if (!jtfClipboard.getText().equals(clipboard)) {
+                        jtfClipboard.setText(clipboard);
+                    }
+                });
+            }
+        }
+    }
+
+    private void doFolder() throws Exception {
+        File folderDestiny = getFolderDesitny();
+        if (folderDestiny != null && !folderDestiny.exists()) {
+            Files.createDirectories(folderDestiny.toPath());
+        }
+    }
+
+    private void doMove() throws Exception {
+        String origin = jtfOrigin.getText();
+        if (!origin.isEmpty()) {
+            File folderOrigin = new File(origin);
+            if (folderOrigin.isDirectory()) {
+                File folderDestiny = getFolderDesitny();
+                if (folderDestiny != null && folderDestiny.isDirectory()) {
+                    for (var insideOrigin : folderOrigin.listFiles()) {
+                        File destiny = new File(folderDestiny, insideOrigin.getName());
+                        if (insideOrigin.isDirectory()) {
+                            FileUtils.moveDirectory(insideOrigin, destiny);
+                        } else {
+                            if (canMove(insideOrigin)) {
+                                FileUtils.moveFile(insideOrigin, destiny);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private File getFolderDesitny() {
+        String destiny = jtfDesitny.getText();
+        if (!destiny.isEmpty()) {
+            String root = jtfRoot.getText();
+            File folderRoot = root.isEmpty() ? null : new File(root);
+            File folderDestiny;
+            if (folderRoot != null) {
+                folderDestiny = new File(folderRoot, destiny);
+            } else {
+                folderDestiny = new File(destiny);
+            }
+            return folderDestiny;
+        }
+        return null;
+    }
+
+    private boolean canMove(File file) {
+        try ( FileChannel channel = new RandomAccessFile(file, "rw").getChannel()) {
+            try ( var lock = channel.tryLock()) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -137,6 +166,9 @@ public class Interface extends javax.swing.JFrame {
         jtfOrigin = new javax.swing.JTextField();
         jbtOriginSelect = new javax.swing.JButton();
         jbtOriginOpen = new javax.swing.JButton();
+        jbtDoPaste = new javax.swing.JButton();
+        jbtDoFolder = new javax.swing.JButton();
+        jbtDoMove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CMFD");
@@ -338,6 +370,27 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        jbtDoPaste.setText(">");
+        jbtDoPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDoPasteActionPerformed(evt);
+            }
+        });
+
+        jbtDoFolder.setText(">");
+        jbtDoFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDoFolderActionPerformed(evt);
+            }
+        });
+
+        jbtDoMove.setText(">");
+        jbtDoMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDoMoveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -348,8 +401,10 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jlbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jcbAlwaysOnTop)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                        .addComponent(jcbAutoPaste))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(jcbAutoPaste)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtDoPaste))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jbtClipboardLeft)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -421,8 +476,14 @@ public class Interface extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbAutoFolder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbAutoMove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jcbAutoFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtDoFolder))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jcbAutoMove, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtDoMove)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -430,10 +491,11 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jlbTitle)
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbAlwaysOnTop)
-                    .addComponent(jcbAutoPaste))
+                    .addComponent(jcbAutoPaste)
+                    .addComponent(jbtDoPaste))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -469,7 +531,9 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jbtMountedBack)
                     .addComponent(jbtMountedAdd))
                 .addGap(18, 18, 18)
-                .addComponent(jcbAutoFolder)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbAutoFolder)
+                    .addComponent(jbtDoFolder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -483,7 +547,9 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jbtDestinySelect)
                     .addComponent(jbtDestinyOpen))
                 .addGap(18, 18, 18)
-                .addComponent(jcbAutoMove)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbAutoMove)
+                    .addComponent(jbtDoMove))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtOriginSelect)
@@ -636,6 +702,30 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void jbtDoPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoPasteActionPerformed
+        try {
+            doPaste();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_jbtDoPasteActionPerformed
+
+    private void jbtDoFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoFolderActionPerformed
+        try {
+            doFolder();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_jbtDoFolderActionPerformed
+
+    private void jbtDoMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoMoveActionPerformed
+        try {
+            doMove();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_jbtDoMoveActionPerformed
+
     private void addOnLeft(String part) {
         jtfMounted.setText(part + jtfMounted.getText());
         parted.add(part);
@@ -688,6 +778,9 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jbtClipboardRight;
     private javax.swing.JButton jbtDestinyOpen;
     private javax.swing.JButton jbtDestinySelect;
+    private javax.swing.JButton jbtDoFolder;
+    private javax.swing.JButton jbtDoMove;
+    private javax.swing.JButton jbtDoPaste;
     private javax.swing.JButton jbtIndexLeft;
     private javax.swing.JButton jbtIndexRight;
     private javax.swing.JButton jbtMountedAdd;
