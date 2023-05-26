@@ -673,14 +673,16 @@ public class Interface extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             WizProps.load("CMFD");
-            jtfClipboard.setText(WizProps.getStr("clipboard"));
-            jtfDesitny.setText(WizProps.getStr("destiny"));
-            jtfMounted.setText(WizProps.getStr("mounted"));
-            jtfOrigin.setText(WizProps.getStr("origin"));
-            jtfRoot.setText(WizProps.getStr("root"));
-            jtfShortcut1.setText(WizProps.getStr("shortcut1"));
-            jtfShortcut2.setText(WizProps.getStr("shortcut2"));
-            jtfShortcut3.setText(WizProps.getStr("shortcut3"));
+            jtfClipboard.setText(WizProps.get("clipboard", ""));
+            jtfDesitny.setText(WizProps.get("destiny", ""));
+            jtfMounted.setText(WizProps.get("mounted", ""));
+            jtfOrigin.setText(WizProps.get("origin", ""));
+            jtfRoot.setText(WizProps.get("root", ""));
+            jtfShortcut1.setText(WizProps.get("shortcut1", ""));
+            jtfShortcut2.setText(WizProps.get("shortcut2", ""));
+            jtfShortcut3.setText(WizProps.get("shortcut3", ""));
+            jspIndexFormat.setValue(WizProps.get("index-format", 2));
+            jspIndexValue.setValue(WizProps.get("index-value", 1));
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
@@ -688,14 +690,16 @@ public class Interface extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            WizProps.setStr("clipboard", jtfClipboard.getText());
-            WizProps.setStr("destiny", jtfDesitny.getText());
-            WizProps.setStr("mounted", jtfMounted.getText());
-            WizProps.setStr("origin", jtfOrigin.getText());
-            WizProps.setStr("root", jtfRoot.getText());
-            WizProps.setStr("shortcut1", jtfShortcut1.getText());
-            WizProps.setStr("shortcut2", jtfShortcut2.getText());
-            WizProps.setStr("shortcut3", jtfShortcut3.getText());
+            WizProps.set("clipboard", jtfClipboard.getText());
+            WizProps.set("destiny", jtfDesitny.getText());
+            WizProps.set("mounted", jtfMounted.getText());
+            WizProps.set("origin", jtfOrigin.getText());
+            WizProps.set("root", jtfRoot.getText());
+            WizProps.set("shortcut1", jtfShortcut1.getText());
+            WizProps.set("shortcut2", jtfShortcut2.getText());
+            WizProps.set("shortcut3", jtfShortcut3.getText());
+            WizProps.set("index-format", (Integer) jspIndexFormat.getValue());
+            WizProps.set("index-value", (Integer) jspIndexValue.getValue());
             WizProps.save("CMFD");
         } catch (Exception ex) {
             WizSwing.showError(ex);
