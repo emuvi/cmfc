@@ -219,6 +219,15 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        jtfClipboard.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfClipboardKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfClipboardKeyReleased(evt);
+            }
+        });
+
         jbtClipboardEquals.setText("=");
         jbtClipboardEquals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -962,6 +971,15 @@ public class Interface extends javax.swing.JFrame {
     private void jbtMagicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMagicActionPerformed
         makeMagic();
     }//GEN-LAST:event_jbtMagicActionPerformed
+
+    private void jtfClipboardKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfClipboardKeyPressed
+        autoPaste.set(false);
+    }//GEN-LAST:event_jtfClipboardKeyPressed
+
+    private void jtfClipboardKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfClipboardKeyReleased
+        WizSwing.putStringOnClipboard(jtfClipboard.getText());
+        autoPaste.set(jcbAutoPaste.isSelected());
+    }//GEN-LAST:event_jtfClipboardKeyReleased
 
     private void addOnLeft(String part) {
         jtfMounted.setText(part + jtfMounted.getText());

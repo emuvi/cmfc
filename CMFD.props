@@ -1,13 +1,13 @@
 #CMFD Props
-#Sun May 28 12:05:13 BRT 2023
-magic=RUN_PASTE+SET_PART_1+ADD_RIGHT_PART_2
-destiny=Parte 15 - Demonstração da Validade de um Argumento
+#Sun May 28 12:44:00 BRT 2023
+magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER_MOVE
+destiny=Aula 28 - Lógica de Argumentação - Questões Conclusão Falsa - Parte 04
 index-format=2
-index-value=16
+index-value=29
 origin=C\:\\Users\\emuvi\\Downloads
-root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Serpro\\Preparação\\Raciocínio Lógico\\Aula 03 - Lógica de Argumentação
+root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 03 - Lógica de Argumentação
 shortcut3=
 shortcut2=\ - 
-clipboard=
-mounted=Parte 15 - Demonstração da Validade de um Argumento
-shortcut1=Aula 
+clipboard=Aulas
+mounted=Aula 28 - Lógica de Argumentação - Questões Conclusão Falsa - Parte 04
+shortcut1=Aula Aulas

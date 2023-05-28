@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -32,6 +33,12 @@ public class WizSwing {
             }
         }
         return null;
+    }
+    
+    public static void putStringOnClipboard(String string) {
+        StringSelection selection = new StringSelection(string);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
     }
     
     public static File selectFolder(File selected) {
