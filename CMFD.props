@@ -1,20 +1,20 @@
 #CMFD Props
-#Sun May 28 15:56:37 BRT 2023
+#Sun May 28 16:09:22 BRT 2023
 magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER+RUN_MOVE
-destiny=Aula 27 - Baixar Áu - Dio - 480p
+destiny=Múltiplos E Divisores. Mmc E Mdc.
 index-format=2
 always-on-top=true
-index-value=28
+index-value=7
 origin=C\:\\Users\\emuvi\\Downloads
 shortcut3=
 shortcut2=\ - 
 always-ontop=false
-clipboard=name.substring(0, 1)
-mounted=Aula 27 - Baixar ÁU\\DIO   \:  480p
+clipboard=Múltiplos e Divisores. MMC e MDC.
+mounted=Múltiplos e Divisores. MMC e MDC.
 auto-paste=true
 shortcut1=Aula 
-top=299
-left=1087
+top=255
+left=1066
 root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 09 - Potências de Dez e Unidades de Medida
 width=654
 height=570

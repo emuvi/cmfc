@@ -803,11 +803,11 @@ public class Interface extends javax.swing.JFrame {
     }
 
     private String capitalizeFirstLetterOnly(String name) {
-        if (name.length() > 1) {
+        if (name.length() > 3) {
             return name.substring(0, 1).toUpperCase()
                     + name.substring(1).toLowerCase();
         } else {
-            return name.toUpperCase();
+            return name.toLowerCase();
         }
     }
 
