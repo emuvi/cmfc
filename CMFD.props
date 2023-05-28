@@ -1,20 +1,20 @@
 #CMFD Props
-#Sun May 28 16:28:58 BRT 2023
+#Sun May 28 18:31:23 BRT 2023
 magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER+RUN_MOVE
-destiny=Aula 03 - Mínimo Múltiplo Comum (mmc) - Teoria
+destiny=Aula 10 - Servidor web iis ( Questões fcc )
 index-format=2
 always-on-top=true
-index-value=4
+index-value=11
 origin=C\:\\Users\\emuvi\\Downloads
 shortcut3=
 shortcut2=\ - 
 always-ontop=false
-clipboard=.replaceAll("\\\\s*\\\\|\\\\s*", " - ")
-mounted=Aula 03 - Mínimo Múltiplo Comum (MMC) - Teoria
+clipboard=Servidor Web IIS (Questões FCC)
+mounted=Aula 10 - Servidor Web IIS (Questões FCC)
 auto-paste=true
 shortcut1=Aula 
-top=255
-left=1066
-root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 10 - Múltiplos e Divisores - MMC e MDC
-width=654
+top=87
+left=1079
+root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\RF - Arquitetura de Computadores\\Tema 01
+width=639
 height=570

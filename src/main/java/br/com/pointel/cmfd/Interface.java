@@ -801,13 +801,30 @@ public class Interface extends javax.swing.JFrame {
                 .replaceAll("\\s*\\'\\s*", "'");
         String[] parts = making.split("\\s+");
         String result = "";
+        boolean capitalize = shouldCapitalize(making);
         for (int i = 0; i < parts.length; i++) {
             if (i > 0) {
                 result += " ";
             }
-            result += capitalizeFirstLetterOnly(parts[i]);
+            result += capitalize ? capitalizeFirstLetterOnly(parts[i]) : parts[i];
         }
         return result;
+    }
+    
+    private boolean shouldCapitalize(String name) {
+        int upper = 0;
+        int lower = 0;
+        for (int i = 0; i < name.length(); i++) {
+            char ch = name.charAt(i);
+            if (Character.isLetter(ch)) {
+                if (Character.isUpperCase(ch)) {
+                    upper++;
+                } else if (Character.isLowerCase(ch)) {
+                    lower++;
+                } 
+            }
+        }
+        return upper >= lower / 2;
     }
 
     private String capitalizeFirstLetterOnly(String name) {
