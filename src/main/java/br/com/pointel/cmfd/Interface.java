@@ -851,6 +851,8 @@ public class Interface extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             WizProps.load("CMFD");
+            jcbAlwaysOnTop.setSelected(WizProps.get("always-on-top", false));
+            jcbAutoPaste.setSelected(WizProps.get("auto-paste", false));
             jtfClipboard.setText(WizProps.get("clipboard", ""));
             jtfDesitny.setText(WizProps.get("destiny", ""));
             jtfMagic.setText(WizProps.get("magic", ""));
@@ -862,6 +864,11 @@ public class Interface extends javax.swing.JFrame {
             jtfShortcut3.setText(WizProps.get("shortcut3", ""));
             jspIndexFormat.setValue(WizProps.get("index-format", 2));
             jspIndexValue.setValue(WizProps.get("index-value", 1));
+            setBounds(
+                    WizProps.get("left", getBounds().x),
+                    WizProps.get("top", getBounds().y),
+                    WizProps.get("width", getBounds().width),
+                    WizProps.get("height", getBounds().height));
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
@@ -869,6 +876,8 @@ public class Interface extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
+            WizProps.set("always-on-top", jcbAlwaysOnTop.isSelected());
+            WizProps.set("auto-paste", jcbAutoPaste.isSelected());
             WizProps.set("clipboard", jtfClipboard.getText());
             WizProps.set("destiny", jtfDesitny.getText());
             WizProps.set("magic", jtfMagic.getText());
@@ -880,6 +889,10 @@ public class Interface extends javax.swing.JFrame {
             WizProps.set("shortcut3", jtfShortcut3.getText());
             WizProps.set("index-format", (Integer) jspIndexFormat.getValue());
             WizProps.set("index-value", (Integer) jspIndexValue.getValue());
+            WizProps.set("left", getBounds().x);
+            WizProps.set("top", getBounds().y);
+            WizProps.set("width", getBounds().width);
+            WizProps.set("height", getBounds().height);
             WizProps.save("CMFD");
         } catch (Exception ex) {
             WizSwing.showError(ex);

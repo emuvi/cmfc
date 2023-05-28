@@ -40,5 +40,13 @@ public class WizProps {
     public static void set(String key, Integer value) {
         set(key, value.toString());
     }
+    
+    public static Boolean get(String key, Boolean defaultValue) {
+        return Boolean.valueOf(get(key, defaultValue.toString()));
+    }
+
+    public static void set(String key, Boolean value) {
+        set(key, value.toString());
+    }
 
 }

@@ -1,13 +1,14 @@
 #CMFD Props
-#Sun May 28 12:44:00 BRT 2023
+#Sun May 28 13:09:37 BRT 2023
 magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER_MOVE
-destiny=Aula 28 - Lógica de Argumentação - Questões Conclusão Falsa - Parte 04
+destiny=Aula 36 - Lógica de argumentação - Questões CEBRASPE - Parte 02
 index-format=2
-index-value=29
+index-value=37
 origin=C\:\\Users\\emuvi\\Downloads
-root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 03 - Lógica de Argumentação
 shortcut3=
 shortcut2=\ - 
-clipboard=Aulas
-mounted=Aula 28 - Lógica de Argumentação - Questões Conclusão Falsa - Parte 04
-shortcut1=Aula Aulas
+always-ontop=false
+clipboard=Lógica de argumentação - Questões CEBRASPE - Parte 02
+mounted=Aula 36 - Lógica de argumentação - Questões CEBRASPE - Parte 02
+shortcut1=Aula 
+root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 03 - Lógica de Argumentação
