@@ -782,15 +782,34 @@ public class Interface extends javax.swing.JFrame {
         if (isMagicAction(evt)) {
             addMagicAction(STUFF.SET_MOUNTED);
         } else {
-            jtfDesitny.setText(
-                    jtfMounted.getText()
-                            .replaceAll("\\s+", " ")
-                            .replace('/', '-')
-                            .replace('\\', '-')
-                            .replace(':', '-')
-                            .replace('|', '-'));
+            jtfDesitny.setText(fixFileName(jtfMounted.getText()));
         }
     }//GEN-LAST:event_jbtMountedEqualsActionPerformed
+
+    private String fixFileName(String name) {
+        String making = name.replaceAll("\\s*\\/\\s*", " - ")
+                .replaceAll("\\s*\\\\\\s*", " - ")
+                .replaceAll("\\s*\\:\\s*", " - ")
+                .replaceAll("\\s*\\|\\s*", " - ");
+        String[] parts = making.split("\\s+");
+        String result = "";
+        for (int i = 0; i < parts.length; i++) {
+            if (i > 0) {
+                result += " ";
+            }
+            result += capitalizeFirstLetterOnly(parts[i]);
+        }
+        return result;
+    }
+
+    private String capitalizeFirstLetterOnly(String name) {
+        if (name.length() > 1) {
+            return name.substring(0, 1).toUpperCase()
+                    + name.substring(1).toLowerCase();
+        } else {
+            return name.toUpperCase();
+        }
+    }
 
     private void jcbAutoFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutoFolderActionPerformed
         autoFolder.set(jcbAutoFolder.isSelected());
