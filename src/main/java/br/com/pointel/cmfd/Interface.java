@@ -824,7 +824,7 @@ public class Interface extends javax.swing.JFrame {
                 } 
             }
         }
-        return upper >= lower / 2;
+        return upper > 3 && upper > lower;
     }
 
     private String capitalizeFirstLetterOnly(String name) {

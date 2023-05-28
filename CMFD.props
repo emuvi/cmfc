@@ -1,7 +1,7 @@
 #CMFD Props
-#Sun May 28 18:31:23 BRT 2023
+#Sun May 28 18:46:27 BRT 2023
 magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER+RUN_MOVE
-destiny=Aula 10 - Servidor web iis ( Questões fcc )
+destiny=Servidor web iis ( Questões Vunesp )
 index-format=2
 always-on-top=true
 index-value=11
@@ -9,8 +9,8 @@ origin=C\:\\Users\\emuvi\\Downloads
 shortcut3=
 shortcut2=\ - 
 always-ontop=false
-clipboard=Servidor Web IIS (Questões FCC)
-mounted=Aula 10 - Servidor Web IIS (Questões FCC)
+clipboard=Servidor Web IIS (Questões VUNESP)
+mounted=Servidor Web IIS (Questões VUNESP)
 auto-paste=true
 shortcut1=Aula 
 top=87
