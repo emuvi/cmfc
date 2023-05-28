@@ -868,7 +868,9 @@ public class Interface extends javax.swing.JFrame {
                     WizProps.get("width", getBounds().width),
                     WizProps.get("height", getBounds().height));
             jcbAlwaysOnTop.setSelected(WizProps.get("always-on-top", false));
+            jcbAlwaysOnTopActionPerformed(null);
             jcbAutoPaste.setSelected(WizProps.get("auto-paste", false));
+            jcbAutoPasteActionPerformed(null);
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
