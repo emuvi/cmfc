@@ -1,20 +1,20 @@
 #CMFD Props
-#Sun May 28 16:09:22 BRT 2023
+#Sun May 28 16:28:58 BRT 2023
 magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER+RUN_MOVE
-destiny=Múltiplos E Divisores. Mmc E Mdc.
+destiny=Aula 03 - Mínimo Múltiplo Comum (mmc) - Teoria
 index-format=2
 always-on-top=true
-index-value=7
+index-value=4
 origin=C\:\\Users\\emuvi\\Downloads
 shortcut3=
 shortcut2=\ - 
 always-ontop=false
-clipboard=Múltiplos e Divisores. MMC e MDC.
-mounted=Múltiplos e Divisores. MMC e MDC.
+clipboard=.replaceAll("\\\\s*\\\\|\\\\s*", " - ")
+mounted=Aula 03 - Mínimo Múltiplo Comum (MMC) - Teoria
 auto-paste=true
 shortcut1=Aula 
 top=255
 left=1066
-root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 09 - Potências de Dez e Unidades de Medida
+root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\Raciocínio Lógico\\Tema 10 - Múltiplos e Divisores - MMC e MDC
 width=654
 height=570

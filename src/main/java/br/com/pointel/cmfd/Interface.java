@@ -790,7 +790,15 @@ public class Interface extends javax.swing.JFrame {
         String making = name.replaceAll("\\s*\\/\\s*", " - ")
                 .replaceAll("\\s*\\\\\\s*", " - ")
                 .replaceAll("\\s*\\:\\s*", " - ")
-                .replaceAll("\\s*\\|\\s*", " - ");
+                .replaceAll("\\s*\\|\\s*", " - ")
+                .replaceAll("\\s*\\(\\s*", " ( ")
+                .replaceAll("\\s*\\)\\s*", " ) ")
+                .replaceAll("\\s*\\[\\s*", " [ ")
+                .replaceAll("\\s*\\]\\s*", " ] ")
+                .replaceAll("\\s*\\{\\s*", " { ")
+                .replaceAll("\\s*\\}\\s*", " } ")
+                .replaceAll("\\s*\\\"\\s*", "\"")
+                .replaceAll("\\s*\\'\\s*", "'");
         String[] parts = making.split("\\s+");
         String result = "";
         for (int i = 0; i < parts.length; i++) {
