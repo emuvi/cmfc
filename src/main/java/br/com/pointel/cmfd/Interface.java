@@ -878,7 +878,6 @@ public class Interface extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            
             WizProps.set("clipboard", jtfClipboard.getText());
             WizProps.set("destiny", jtfDesitny.getText());
             WizProps.set("magic", jtfMagic.getText());
