@@ -1,11 +1,11 @@
 package br.com.pointel.cmfd;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.RandomAccessFile;
 import static java.lang.Thread.sleep;
 import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +17,17 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.io.FileUtils;
 
 public class Interface extends javax.swing.JFrame {
-    
+
     private final AtomicBoolean autoPaste = new AtomicBoolean(false);
     private final AtomicBoolean autoFolder = new AtomicBoolean(false);
     private final AtomicBoolean autoMove = new AtomicBoolean(false);
     private final List<String> parted = new ArrayList<>();
-    
+
     public Interface() {
         initComponents();
         startCapturer();
     }
-    
+
     private void startCapturer() {
         new Thread("CMFC Capturer") {
             @Override
@@ -49,32 +49,38 @@ public class Interface extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
         }.start();
     }
-    
+
     private void doPaste() throws Exception {
         String testing = WizSwing.getStringOnClipboard();
         if (testing != null) {
             testing = testing.replaceAll("\\s+", " ");
             final String clipboard = testing.trim();
             if (!clipboard.isEmpty()) {
-                SwingUtilities.invokeAndWait(() -> {
+                if (SwingUtilities.isEventDispatchThread()) {
                     if (!jtfClipboard.getText().equals(clipboard)) {
                         jtfClipboard.setText(clipboard);
                     }
-                });
+                } else {
+                    SwingUtilities.invokeAndWait(() -> {
+                        if (!jtfClipboard.getText().equals(clipboard)) {
+                            jtfClipboard.setText(clipboard);
+                        }
+                    });
+                }
             }
         }
     }
-    
+
     private void doFolder() throws Exception {
         File folderDestiny = getFolderDesitny();
         if (folderDestiny != null && !folderDestiny.exists()) {
             Files.createDirectories(folderDestiny.toPath());
         }
     }
-    
+
     private void doMove() throws Exception {
         String origin = jtfOrigin.getText();
         if (!origin.isEmpty()) {
@@ -96,7 +102,7 @@ public class Interface extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private File getFolderDesitny() {
         String destiny = jtfDesitny.getText();
         if (!destiny.isEmpty()) {
@@ -112,7 +118,7 @@ public class Interface extends javax.swing.JFrame {
         }
         return null;
     }
-    
+
     private boolean canMove(File file) {
         try ( FileChannel channel = new RandomAccessFile(file, "rw").getChannel()) {
             try ( var lock = channel.tryLock()) {
@@ -122,7 +128,7 @@ public class Interface extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -151,7 +157,7 @@ public class Interface extends javax.swing.JFrame {
         jbtMountedBack = new javax.swing.JButton();
         jtfMounted = new javax.swing.JTextField();
         jbtMountedCopy = new javax.swing.JButton();
-        jbtMountedAdd = new javax.swing.JButton();
+        jbtMountedEquals = new javax.swing.JButton();
         jcbAutoFolder = new javax.swing.JCheckBox();
         jlbRoot = new javax.swing.JLabel();
         jtfRoot = new javax.swing.JTextField();
@@ -174,6 +180,8 @@ public class Interface extends javax.swing.JFrame {
         jbtShortcut3Equals = new javax.swing.JButton();
         jbtIndexEquals = new javax.swing.JButton();
         jbtFolderMove = new javax.swing.JButton();
+        jtfMagic = new javax.swing.JTextField();
+        jbtMagic = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CMFD");
@@ -306,10 +314,10 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jbtMountedAdd.setText("=");
-        jbtMountedAdd.addActionListener(new java.awt.event.ActionListener() {
+        jbtMountedEquals.setText("=");
+        jbtMountedEquals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtMountedAddActionPerformed(evt);
+                jbtMountedEqualsActionPerformed(evt);
             }
         });
 
@@ -431,6 +439,13 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        jbtMagic.setText("~");
+        jbtMagic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtMagicActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -460,7 +475,7 @@ public class Interface extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jspIndexFormat, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jspIndexValue))
+                                .addComponent(jspIndexValue, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jbtShortcut1Left)
@@ -490,17 +505,22 @@ public class Interface extends javax.swing.JFrame {
                                 .addComponent(jbtIndexRight)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbtIndexEquals))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jcbAutoFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtMountedClear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtDoFolder))
+                        .addComponent(jbtMountedBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfMounted)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtMountedCopy)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtMountedEquals))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jtfMagic)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtMagic))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbtMountedClear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtMountedBack))
                             .addComponent(jlbRoot)
                             .addComponent(jlbDestiny)
                             .addComponent(jlbOrigin))
@@ -518,12 +538,6 @@ public class Interface extends javax.swing.JFrame {
                                 .addComponent(jbtRootSelect)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbtRootOpen))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtfMounted)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtMountedCopy)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtMountedAdd))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jtfDesitny)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -535,7 +549,12 @@ public class Interface extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbtOriginSelect)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtOriginOpen)))))
+                                .addComponent(jbtOriginOpen))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jcbAutoFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtDoFolder)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -585,7 +604,7 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jtfMounted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtMountedCopy)
                     .addComponent(jbtMountedBack)
-                    .addComponent(jbtMountedAdd))
+                    .addComponent(jbtMountedEquals))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbAutoFolder)
@@ -613,6 +632,10 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jtfOrigin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbOrigin)
                     .addComponent(jbtOriginOpen))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfMagic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtMagic))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -628,103 +651,188 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbAutoPasteActionPerformed
 
     private void jbtClipboardLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClipboardLeftActionPerformed
-        addOnLeft(jtfClipboard.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_LEFT_PASTE);
+        } else {
+            addOnLeft(jtfClipboard.getText());
+        }
     }//GEN-LAST:event_jbtClipboardLeftActionPerformed
 
     private void jbtClipboardEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClipboardEqualsActionPerformed
-        addEquals(jtfClipboard.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SET_PASTE);
+        } else {
+            addEquals(jtfClipboard.getText());
+        }
     }//GEN-LAST:event_jbtClipboardEqualsActionPerformed
 
     private void jbtClipboardRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtClipboardRightActionPerformed
-        addOnRight(jtfClipboard.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_RIGHT_PASTE);
+        } else {
+            addOnRight(jtfClipboard.getText());
+        }
     }//GEN-LAST:event_jbtClipboardRightActionPerformed
 
     private void jbtShortcut1LeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut1LeftActionPerformed
-        addOnLeft(jtfShortcut1.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_LEFT_PART_1);
+        } else {
+            addOnLeft(jtfShortcut1.getText());
+        }
     }//GEN-LAST:event_jbtShortcut1LeftActionPerformed
 
     private void jbtShortcut1RightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut1RightActionPerformed
-        addOnRight(jtfShortcut1.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_RIGHT_PART_1);
+        } else {
+            addOnRight(jtfShortcut1.getText());
+        }
     }//GEN-LAST:event_jbtShortcut1RightActionPerformed
 
     private void jbtShortcut2LeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut2LeftActionPerformed
-        addOnLeft(jtfShortcut2.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_LEFT_PART_2);
+        } else {
+            addOnLeft(jtfShortcut2.getText());
+        }
     }//GEN-LAST:event_jbtShortcut2LeftActionPerformed
 
     private void jbtShortcut2RightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut2RightActionPerformed
-        addOnRight(jtfShortcut2.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_RIGHT_PART_2);
+        } else {
+            addOnRight(jtfShortcut2.getText());
+        }
     }//GEN-LAST:event_jbtShortcut2RightActionPerformed
 
     private void jbtShortcut3LeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut3LeftActionPerformed
-        addOnLeft(jtfShortcut3.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_LEFT_PART_3);
+        } else {
+            addOnLeft(jtfShortcut3.getText());
+        }
     }//GEN-LAST:event_jbtShortcut3LeftActionPerformed
 
     private void jbtShortcut3RightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut3RightActionPerformed
-        addOnRight(jtfShortcut3.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_RIGHT_PART_3);
+        } else {
+            addOnRight(jtfShortcut3.getText());
+        }
     }//GEN-LAST:event_jbtShortcut3RightActionPerformed
 
     private void jbtMountedCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMountedCopyActionPerformed
-        jtfMounted.selectAll();
-        jtfMounted.copy();
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.COPY_MOUNTED);
+        } else {
+            jtfMounted.selectAll();
+            jtfMounted.copy();
+        }
     }//GEN-LAST:event_jbtMountedCopyActionPerformed
 
     private void jbtMountedClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMountedClearActionPerformed
-        jtfMounted.setText("");
-        parted.clear();
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.CLEAR_MOUNTED);
+        } else {
+            jtfMounted.setText("");
+            parted.clear();
+        }
     }//GEN-LAST:event_jbtMountedClearActionPerformed
 
     private void jbtIndexLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIndexLeftActionPerformed
-        addOnLeft(getIndexText());
-        addIndexValue();
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_LEFT_INDEX);
+        } else {
+            addOnLeft(getIndexText());
+            addIndexValue();
+        }
     }//GEN-LAST:event_jbtIndexLeftActionPerformed
 
     private void jbtIndexRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIndexRightActionPerformed
-        addOnRight(getIndexText());
-        addIndexValue();
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.ADD_RIGHT_INDEX);
+        } else {
+            addOnRight(getIndexText());
+            addIndexValue();
+        }
     }//GEN-LAST:event_jbtIndexRightActionPerformed
 
     private void jbtMountedBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMountedBackActionPerformed
-        if (!parted.isEmpty()) {
-            String part = parted.remove(parted.size() - 1);
-            jtfMounted.setText(jtfMounted.getText().replace(part, ""));
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.UNDO_PART);
+        } else {
+            if (!parted.isEmpty()) {
+                String part = parted.remove(parted.size() - 1);
+                jtfMounted.setText(jtfMounted.getText().replace(part, ""));
+            }
         }
     }//GEN-LAST:event_jbtMountedBackActionPerformed
 
-    private void jbtMountedAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMountedAddActionPerformed
-        jtfDesitny.setText(jtfMounted.getText()
-                .replace('/', '-')
-                .replace('\\', '-')
-                .replace(':', '-')
-                .replace('|', '-'));
-    }//GEN-LAST:event_jbtMountedAddActionPerformed
+    private void jbtMountedEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMountedEqualsActionPerformed
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SET_MOUNTED);
+        } else {
+            jtfDesitny.setText(
+                    jtfMounted.getText()
+                            .replaceAll("\\s+", " ")
+                            .replace('/', '-')
+                            .replace('\\', '-')
+                            .replace(':', '-')
+                            .replace('|', '-'));
+        }
+    }//GEN-LAST:event_jbtMountedEqualsActionPerformed
 
     private void jcbAutoFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutoFolderActionPerformed
         autoFolder.set(jcbAutoFolder.isSelected());
     }//GEN-LAST:event_jcbAutoFolderActionPerformed
 
     private void jbtRootSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRootSelectActionPerformed
-        selectFolder(jtfRoot);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SEL_ROOT);
+        } else {
+            selectFolder(jtfRoot);
+        }
     }//GEN-LAST:event_jbtRootSelectActionPerformed
 
     private void jbtRootOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRootOpenActionPerformed
-        openFolder(jtfRoot);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.GO_ROOT);
+        } else {
+            openFolder(jtfRoot);
+        }
     }//GEN-LAST:event_jbtRootOpenActionPerformed
 
     private void jbtDestinySelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDestinySelectActionPerformed
-        
-        openFolder(jtfDesitny, jtfRoot);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SEL_DESTINY);
+        } else {
+            openFolder(jtfDesitny, jtfRoot);
+        }
     }//GEN-LAST:event_jbtDestinySelectActionPerformed
 
     private void jbtDestinyOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDestinyOpenActionPerformed
-        openFolder(jtfDesitny, jtfRoot);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.GO_DESTINY);
+        } else {
+            openFolder(jtfDesitny, jtfRoot);
+        }
     }//GEN-LAST:event_jbtDestinyOpenActionPerformed
 
     private void jbtOriginSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtOriginSelectActionPerformed
-        selectFolder(jtfOrigin);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SEL_ORIGIN);
+        } else {
+            selectFolder(jtfOrigin);
+        }
     }//GEN-LAST:event_jbtOriginSelectActionPerformed
 
     private void jbtOriginOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtOriginOpenActionPerformed
-        openFolder(jtfOrigin);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.GO_ORIGIN);
+        } else {
+            openFolder(jtfOrigin);
+        }
     }//GEN-LAST:event_jbtOriginOpenActionPerformed
 
     private void jcbAutoMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutoMoveActionPerformed
@@ -736,6 +844,7 @@ public class Interface extends javax.swing.JFrame {
             WizProps.load("CMFD");
             jtfClipboard.setText(WizProps.get("clipboard", ""));
             jtfDesitny.setText(WizProps.get("destiny", ""));
+            jtfMagic.setText(WizProps.get("magic", ""));
             jtfMounted.setText(WizProps.get("mounted", ""));
             jtfOrigin.setText(WizProps.get("origin", ""));
             jtfRoot.setText(WizProps.get("root", ""));
@@ -753,6 +862,7 @@ public class Interface extends javax.swing.JFrame {
         try {
             WizProps.set("clipboard", jtfClipboard.getText());
             WizProps.set("destiny", jtfDesitny.getText());
+            WizProps.set("magic", jtfMagic.getText());
             WizProps.set("mounted", jtfMounted.getText());
             WizProps.set("origin", jtfOrigin.getText());
             WizProps.set("root", jtfRoot.getText());
@@ -769,69 +879,105 @@ public class Interface extends javax.swing.JFrame {
 
     private void jbtDoPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoPasteActionPerformed
         try {
-            doPaste();
+            if (isMagicAction(evt)) {
+                addMagicAction(STUFF.RUN_PASTE);
+            } else {
+                doPaste();
+            }
         } catch (Exception e) {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_jbtDoPasteActionPerformed
 
     private void jbtDoFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoFolderActionPerformed
-        try {
-            doFolder();
-        } catch (Exception e) {
-            WizSwing.showError(e);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.RUN_FOLDER);
+        } else {
+            try {
+                doFolder();
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
         }
     }//GEN-LAST:event_jbtDoFolderActionPerformed
 
     private void jbtDoMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoMoveActionPerformed
-        try {
-            doMove();
-        } catch (Exception e) {
-            WizSwing.showError(e);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.RUN_MOVE);
+        } else {
+            try {
+                doMove();
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
         }
     }//GEN-LAST:event_jbtDoMoveActionPerformed
 
     private void jbtShortcut1EqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut1EqualsActionPerformed
-        addEquals(jtfShortcut1.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SET_PART_1);
+        } else {
+            addEquals(jtfShortcut1.getText());
+        }
     }//GEN-LAST:event_jbtShortcut1EqualsActionPerformed
 
     private void jbtShortcut2EqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut2EqualsActionPerformed
-        addEquals(jtfShortcut2.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SET_PART_2);
+        } else {
+            addEquals(jtfShortcut2.getText());
+        }
     }//GEN-LAST:event_jbtShortcut2EqualsActionPerformed
 
     private void jbtShortcut3EqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtShortcut3EqualsActionPerformed
-        addEquals(jtfShortcut3.getText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SET_PART_3);
+        } else {
+            addEquals(jtfShortcut3.getText());
+        }
     }//GEN-LAST:event_jbtShortcut3EqualsActionPerformed
 
     private void jbtIndexEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIndexEqualsActionPerformed
-        addEquals(getIndexText());
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.SET_INDEX);
+        } else {
+            addEquals(getIndexText());
+        }
     }//GEN-LAST:event_jbtIndexEqualsActionPerformed
 
     private void jbtFolderMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFolderMoveActionPerformed
-        try {
-            doFolder();
-            doMove();
-            openFolder(jtfDesitny, jtfRoot);
-        } catch (Exception e) {
-            WizSwing.showError(e);
+        if (isMagicAction(evt)) {
+            addMagicAction(STUFF.RUN_FOLDER_MOVE);
+        } else {
+            try {
+                doFolder();
+                doMove();
+                openFolder(jtfDesitny, jtfRoot);
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
         }
     }//GEN-LAST:event_jbtFolderMoveActionPerformed
-    
+
+    private void jbtMagicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMagicActionPerformed
+        makeMagic();
+    }//GEN-LAST:event_jbtMagicActionPerformed
+
     private void addOnLeft(String part) {
         jtfMounted.setText(part + jtfMounted.getText());
         parted.add(part);
     }
-    
+
     private void addOnRight(String part) {
         jtfMounted.setText(jtfMounted.getText() + part);
         parted.add(part);
     }
-    
+
     private void addEquals(String part) {
         jtfMounted.setText(part);
         parted.add(part);
     }
-    
+
     private String getIndexText() {
         Integer format = (Integer) jspIndexFormat.getValue();
         Integer value = (Integer) jspIndexValue.getValue();
@@ -841,16 +987,16 @@ public class Interface extends javax.swing.JFrame {
         }
         return result;
     }
-    
+
     private void addIndexValue() {
         Integer value = (Integer) jspIndexValue.getValue();
         jspIndexValue.setValue(value + 1);
     }
-    
+
     private void selectFolder(JTextField field) {
         selectFolder(field, null);
     }
-    
+
     private void selectFolder(JTextField field, JTextField rootField) {
         String text = field.getText();
         String root = rootField != null ? rootField.getText() : "";
@@ -861,11 +1007,11 @@ public class Interface extends javax.swing.JFrame {
         selected = WizSwing.selectFolder(selected);
         field.setText(selected.getAbsolutePath());
     }
-    
+
     private void openFolder(JTextField field) {
         openFolder(field, null);
     }
-    
+
     private void openFolder(JTextField field, JTextField rootField) {
         String text = field.getText();
         String root = rootField != null ? rootField.getText() : "";
@@ -875,6 +1021,93 @@ public class Interface extends javax.swing.JFrame {
                 WizSwing.open(file);
             } catch (Exception ex) {
                 WizSwing.showError(ex);
+            }
+        }
+    }
+
+    private String getRecipe() {
+        return jtfMagic.getText()
+                .replaceAll("\\s", "")
+                .replaceAll("\\++", "+");
+    }
+
+    private boolean isMagicAction(ActionEvent evt) {
+        return (evt != null && ((evt.getModifiers() & ActionEvent.ALT_MASK) == ActionEvent.ALT_MASK));
+    }
+
+    private void addMagicAction(STUFF magic) {
+        var recipe = getRecipe();
+        if (!recipe.isEmpty()) {
+            recipe += "+";
+        }
+        recipe += magic.name();
+        jtfMagic.setText(recipe);
+    }
+
+    private void makeMagic() {
+        var recipe = getRecipe();
+        var stuffed = recipe.split("\\+");
+        for (var stuff : stuffed) {
+            var making = STUFF.valueOf(stuff);
+            switch (making) {
+                case RUN_PASTE ->
+                    jbtDoPasteActionPerformed(null);
+                case ADD_LEFT_PASTE ->
+                    jbtClipboardLeftActionPerformed(null);
+                case ADD_RIGHT_PASTE ->
+                    jbtClipboardRightActionPerformed(null);
+                case SET_PASTE ->
+                    jbtClipboardEqualsActionPerformed(null);
+                case ADD_LEFT_PART_1 ->
+                    jbtShortcut1LeftActionPerformed(null);
+                case ADD_RIGHT_PART_1 ->
+                    jbtShortcut1RightActionPerformed(null);
+                case SET_PART_1 ->
+                    jbtShortcut1EqualsActionPerformed(null);
+                case ADD_LEFT_PART_2 ->
+                    jbtShortcut2LeftActionPerformed(null);
+                case ADD_RIGHT_PART_2 ->
+                    jbtShortcut2RightActionPerformed(null);
+                case SET_PART_2 ->
+                    jbtShortcut2EqualsActionPerformed(null);
+                case ADD_LEFT_PART_3 ->
+                    jbtShortcut3LeftActionPerformed(null);
+                case ADD_RIGHT_PART_3 ->
+                    jbtShortcut3RightActionPerformed(null);
+                case SET_PART_3 ->
+                    jbtShortcut3EqualsActionPerformed(null);
+                case ADD_LEFT_INDEX ->
+                    jbtIndexLeftActionPerformed(null);
+                case ADD_RIGHT_INDEX ->
+                    jbtIndexRightActionPerformed(null);
+                case SET_INDEX ->
+                    jbtIndexEqualsActionPerformed(null);
+                case CLEAR_MOUNTED ->
+                    jbtMountedClearActionPerformed(null);
+                case UNDO_PART ->
+                    jbtMountedBackActionPerformed(null);
+                case COPY_MOUNTED ->
+                    jbtMountedCopyActionPerformed(null);
+                case SET_MOUNTED ->
+                    jbtMountedEqualsActionPerformed(null);
+                case RUN_FOLDER ->
+                    jbtDoFolderActionPerformed(null);
+                case SEL_ROOT ->
+                    jbtRootSelectActionPerformed(null);
+                case GO_ROOT ->
+                    jbtRootOpenActionPerformed(null);
+                case SEL_DESTINY ->
+                    jbtDestinySelectActionPerformed(null);
+                case GO_DESTINY ->
+                    jbtDestinyOpenActionPerformed(null);
+                case RUN_FOLDER_MOVE ->
+                    jbtFolderMoveActionPerformed(null);
+                case RUN_MOVE ->
+                    jbtDoMoveActionPerformed(null);
+                case SEL_ORIGIN ->
+                    jbtOriginSelectActionPerformed(null);
+                case GO_ORIGIN ->
+                    jbtOriginOpenActionPerformed(null);
             }
         }
     }
@@ -892,10 +1125,11 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jbtIndexEquals;
     private javax.swing.JButton jbtIndexLeft;
     private javax.swing.JButton jbtIndexRight;
-    private javax.swing.JButton jbtMountedAdd;
+    private javax.swing.JButton jbtMagic;
     private javax.swing.JButton jbtMountedBack;
     private javax.swing.JButton jbtMountedClear;
     private javax.swing.JButton jbtMountedCopy;
+    private javax.swing.JButton jbtMountedEquals;
     private javax.swing.JButton jbtOriginOpen;
     private javax.swing.JButton jbtOriginSelect;
     private javax.swing.JButton jbtRootOpen;
@@ -921,6 +1155,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JSpinner jspIndexValue;
     private javax.swing.JTextField jtfClipboard;
     private javax.swing.JTextField jtfDesitny;
+    private javax.swing.JTextField jtfMagic;
     private javax.swing.JTextField jtfMounted;
     private javax.swing.JTextField jtfOrigin;
     private javax.swing.JTextField jtfRoot;
@@ -939,5 +1174,16 @@ public class Interface extends javax.swing.JFrame {
             new Interface().setVisible(true);
         });
     }
-    
+
+    public static enum STUFF {
+        RUN_PASTE, ADD_LEFT_PASTE, ADD_RIGHT_PASTE, SET_PASTE,
+        ADD_LEFT_PART_1, ADD_RIGHT_PART_1, SET_PART_1,
+        ADD_LEFT_PART_2, ADD_RIGHT_PART_2, SET_PART_2,
+        ADD_LEFT_PART_3, ADD_RIGHT_PART_3, SET_PART_3,
+        ADD_LEFT_INDEX, ADD_RIGHT_INDEX, SET_INDEX,
+        CLEAR_MOUNTED, UNDO_PART, COPY_MOUNTED, SET_MOUNTED,
+        RUN_FOLDER, SEL_ROOT, GO_ROOT, SEL_DESTINY, GO_DESTINY,
+        RUN_FOLDER_MOVE, RUN_MOVE, SEL_ORIGIN, GO_ORIGIN
+    }
+
 }

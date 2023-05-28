@@ -56,7 +56,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jspIndexFormat" min="-2" pref="84" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jspIndexValue" max="32767" attributes="0"/>
+                              <Component id="jspIndexValue" pref="95" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -98,45 +98,43 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jcbAutoFolder" min="-2" pref="85" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jbtMountedClear" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbtDoFolder" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtMountedBack" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jtfMounted" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jbtMountedCopy" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jbtMountedEquals" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jtfMagic" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jbtMagic" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jbtMountedClear" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jbtMountedBack" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="jlbRoot" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlbDestiny" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jlbOrigin" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jbtFolderMove" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jcbAutoMove" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbtDoMove" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jtfRoot" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbtRootSelect" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbtRootOpen" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jtfMounted" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jbtMountedCopy" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jbtMountedAdd" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jtfDesitny" max="32767" attributes="0"/>
@@ -153,6 +151,12 @@
                               <Component id="jbtOriginOpen" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jcbAutoFolder" min="-2" pref="85" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jbtDoFolder" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -212,7 +216,7 @@
                   <Component id="jtfMounted" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtMountedCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtMountedBack" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtMountedAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtMountedEquals" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -245,6 +249,11 @@
                   <Component id="jtfOrigin" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlbOrigin" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtOriginOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jtfMagic" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtMagic" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -410,12 +419,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtMountedCopyActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jbtMountedAdd">
+    <Component class="javax.swing.JButton" name="jbtMountedEquals">
       <Properties>
         <Property name="text" type="java.lang.String" value="="/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtMountedAddActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtMountedEqualsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jcbAutoFolder">
@@ -565,6 +574,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtFolderMoveActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtfMagic">
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtMagic">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="~"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtMagicActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
