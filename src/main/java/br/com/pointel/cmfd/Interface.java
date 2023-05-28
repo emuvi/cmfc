@@ -851,8 +851,6 @@ public class Interface extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             WizProps.load("CMFD");
-            jcbAlwaysOnTop.setSelected(WizProps.get("always-on-top", false));
-            jcbAutoPaste.setSelected(WizProps.get("auto-paste", false));
             jtfClipboard.setText(WizProps.get("clipboard", ""));
             jtfDesitny.setText(WizProps.get("destiny", ""));
             jtfMagic.setText(WizProps.get("magic", ""));
@@ -869,6 +867,8 @@ public class Interface extends javax.swing.JFrame {
                     WizProps.get("top", getBounds().y),
                     WizProps.get("width", getBounds().width),
                     WizProps.get("height", getBounds().height));
+            jcbAlwaysOnTop.setSelected(WizProps.get("always-on-top", false));
+            jcbAutoPaste.setSelected(WizProps.get("auto-paste", false));
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
@@ -876,8 +876,7 @@ public class Interface extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            WizProps.set("always-on-top", jcbAlwaysOnTop.isSelected());
-            WizProps.set("auto-paste", jcbAutoPaste.isSelected());
+            
             WizProps.set("clipboard", jtfClipboard.getText());
             WizProps.set("destiny", jtfDesitny.getText());
             WizProps.set("magic", jtfMagic.getText());
@@ -893,6 +892,8 @@ public class Interface extends javax.swing.JFrame {
             WizProps.set("top", getBounds().y);
             WizProps.set("width", getBounds().width);
             WizProps.set("height", getBounds().height);
+            WizProps.set("always-on-top", jcbAlwaysOnTop.isSelected());
+            WizProps.set("auto-paste", jcbAutoPaste.isSelected());
             WizProps.save("CMFD");
         } catch (Exception ex) {
             WizSwing.showError(ex);
