@@ -813,9 +813,12 @@ public class Interface extends javax.swing.JFrame {
             }
             result += capitalize ? capitalizeFirstLetterOnly(parts[i]) : parts[i];
         }
+        while (result.endsWith(".")) {
+            result = result.substring(0, result.length() - 1);
+        }
         return result;
     }
-    
+
     private boolean shouldCapitalize(String name) {
         int upper = 0;
         int lower = 0;
@@ -826,7 +829,7 @@ public class Interface extends javax.swing.JFrame {
                     upper++;
                 } else if (Character.isLowerCase(ch)) {
                     lower++;
-                } 
+                }
             }
         }
         return upper > 3 && upper > lower;
