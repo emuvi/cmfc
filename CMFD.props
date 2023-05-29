@@ -1,20 +1,20 @@
 #CMFD Props
-#Sun May 28 18:46:27 BRT 2023
+#Mon May 29 08:36:33 BRT 2023
 magic=SET_PART_1+ADD_RIGHT_INDEX+ADD_RIGHT_PART_2+ADD_RIGHT_PASTE+SET_MOUNTED+RUN_FOLDER+RUN_MOVE
-destiny=Servidor web iis ( Questões Vunesp )
+destiny=Aula 07 - PostgreSQL - Usando Procedure Language - PL - PGSQL
 index-format=2
 always-on-top=true
-index-value=11
+index-value=8
 origin=C\:\\Users\\emuvi\\Downloads
 shortcut3=
 shortcut2=\ - 
 always-ontop=false
-clipboard=Servidor Web IIS (Questões VUNESP)
-mounted=Servidor Web IIS (Questões VUNESP)
+clipboard=C\:\\Users\\emuvi\\OneDrive\\Área de Trabalho\\2023-05-29 08_31_35-Tema 01.png
+mounted=Aula 07 - PostgreSQL - Usando Procedure Language\:PL/PGSQL
 auto-paste=true
 shortcut1=Aula 
-top=87
-left=1079
-root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\RF - Arquitetura de Computadores\\Tema 01
+top=571
+left=839
+root=C\:\\Users\\emuvi\\OneDrive\\Documentos\\Aptar\\RF - Banco de Dados\\Tema 01
 width=639
 height=570

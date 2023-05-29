@@ -787,18 +787,23 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtMountedEqualsActionPerformed
 
     private String fixFileName(String name) {
-        String making = name.replaceAll("\\s*\\/\\s*", " - ")
-                .replaceAll("\\s*\\\\\\s*", " - ")
-                .replaceAll("\\s*\\:\\s*", " - ")
-                .replaceAll("\\s*\\|\\s*", " - ")
+        String making = name
+                .replaceAll("\\s*\\/\\s*", " ʃ ")
+                .replaceAll("\\s*\\\\\\s*", " ʃ ")
+                .replaceAll("\\s*\\:\\s*", " ꞉ ")
+                .replaceAll("\\s*\\|\\s*", " ¦ ")
                 .replaceAll("\\s*\\(\\s*", " ( ")
                 .replaceAll("\\s*\\)\\s*", " ) ")
                 .replaceAll("\\s*\\[\\s*", " [ ")
                 .replaceAll("\\s*\\]\\s*", " ] ")
                 .replaceAll("\\s*\\{\\s*", " { ")
                 .replaceAll("\\s*\\}\\s*", " } ")
-                .replaceAll("\\s*\\\"\\s*", "\"")
-                .replaceAll("\\s*\\'\\s*", "'");
+                .replaceAll("\\s*\\<\\s*", " « ")
+                .replaceAll("\\s*\\>\\s*", " » ")
+                .replaceAll("\\s*\\*\\s*", " ¤ ")
+                .replaceAll("\\s*\\?\\s*", " ‽ ")
+                .replaceAll("\\s*\\\"\\s*", " ″ ")
+                .replaceAll("\\s*\\'\\s*", " ′ ");
         String[] parts = making.split("\\s+");
         String result = "";
         boolean capitalize = shouldCapitalize(making);
