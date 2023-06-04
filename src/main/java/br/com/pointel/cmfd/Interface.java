@@ -17,17 +17,17 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.io.FileUtils;
 
 public class Interface extends javax.swing.JFrame {
-
+    
     private final AtomicBoolean autoPaste = new AtomicBoolean(false);
     private final AtomicBoolean autoFolder = new AtomicBoolean(false);
     private final AtomicBoolean autoMove = new AtomicBoolean(false);
     private final List<String> parted = new ArrayList<>();
-
+    
     public Interface() {
         initComponents();
         startCapturer();
     }
-
+    
     private void startCapturer() {
         new Thread("CMFC Capturer") {
             @Override
@@ -49,10 +49,10 @@ public class Interface extends javax.swing.JFrame {
                     }
                 }
             }
-
+            
         }.start();
     }
-
+    
     private void doPaste() throws Exception {
         String testing = WizSwing.getStringOnClipboard();
         if (testing != null) {
@@ -73,14 +73,14 @@ public class Interface extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void doFolder() throws Exception {
         File folderDestiny = getFolderDesitny();
         if (folderDestiny != null && !folderDestiny.exists()) {
             Files.createDirectories(folderDestiny.toPath());
         }
     }
-
+    
     private void doMove() throws Exception {
         String origin = jtfOrigin.getText();
         if (!origin.isEmpty()) {
@@ -102,7 +102,7 @@ public class Interface extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private File getFolderDesitny() {
         String destiny = jtfDesitny.getText();
         if (!destiny.isEmpty()) {
@@ -118,7 +118,7 @@ public class Interface extends javax.swing.JFrame {
         }
         return null;
     }
-
+    
     private boolean canMove(File file) {
         try ( FileChannel channel = new RandomAccessFile(file, "rw").getChannel()) {
             try ( var lock = channel.tryLock()) {
@@ -128,7 +128,7 @@ public class Interface extends javax.swing.JFrame {
             return false;
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -785,7 +785,7 @@ public class Interface extends javax.swing.JFrame {
             jtfDesitny.setText(fixFileName(jtfMounted.getText()));
         }
     }//GEN-LAST:event_jbtMountedEqualsActionPerformed
-
+    
     private String fixFileName(String name) {
         String making = name
                 .replaceAll("\\s*\\/\\s*", " ʃ ")
@@ -806,7 +806,7 @@ public class Interface extends javax.swing.JFrame {
                 .replaceAll("\\s*\\'\\s*", " ′ ");
         String[] parts = making.split("\\s+");
         String result = "";
-        boolean capitalize = shouldCapitalize(making);
+        boolean capitalize = shouldCapitalizeByTooMuchUppers(making) || shouldCapitalizeByTooLessUppers(parts);
         for (int i = 0; i < parts.length; i++) {
             if (i > 0) {
                 result += " ";
@@ -818,8 +818,8 @@ public class Interface extends javax.swing.JFrame {
         }
         return result;
     }
-
-    private boolean shouldCapitalize(String name) {
+    
+    private boolean shouldCapitalizeByTooMuchUppers(String name) {
         int upper = 0;
         int lower = 0;
         for (int i = 0; i < name.length(); i++) {
@@ -834,7 +834,17 @@ public class Interface extends javax.swing.JFrame {
         }
         return upper > 3 && upper > lower;
     }
-
+    
+    private boolean shouldCapitalizeByTooLessUppers(String[] parts) {
+        int upper = 0;
+        for (var part : parts) {
+            if (Character.isUpperCase(part.charAt(0))) {
+                upper++;
+            }
+        }
+        return upper < 1 || upper < parts.length / 2;
+    }
+    
     private String capitalizeFirstLetterOnly(String name) {
         if (name.length() > 3) {
             return name.substring(0, 1).toUpperCase()
@@ -1047,22 +1057,22 @@ public class Interface extends javax.swing.JFrame {
         WizSwing.putStringOnClipboard(jtfClipboard.getText());
         autoPaste.set(jcbAutoPaste.isSelected());
     }//GEN-LAST:event_jtfClipboardKeyReleased
-
+    
     private void addOnLeft(String part) {
         jtfMounted.setText(part + jtfMounted.getText());
         parted.add(part);
     }
-
+    
     private void addOnRight(String part) {
         jtfMounted.setText(jtfMounted.getText() + part);
         parted.add(part);
     }
-
+    
     private void addEquals(String part) {
         jtfMounted.setText(part);
         parted.add(part);
     }
-
+    
     private String getIndexText() {
         Integer format = (Integer) jspIndexFormat.getValue();
         Integer value = (Integer) jspIndexValue.getValue();
@@ -1072,16 +1082,16 @@ public class Interface extends javax.swing.JFrame {
         }
         return result;
     }
-
+    
     private void addIndexValue() {
         Integer value = (Integer) jspIndexValue.getValue();
         jspIndexValue.setValue(value + 1);
     }
-
+    
     private void selectFolder(JTextField field) {
         selectFolder(field, null);
     }
-
+    
     private void selectFolder(JTextField field, JTextField rootField) {
         String text = field.getText();
         String root = rootField != null ? rootField.getText() : "";
@@ -1092,11 +1102,11 @@ public class Interface extends javax.swing.JFrame {
         selected = WizSwing.selectFolder(selected);
         field.setText(selected.getAbsolutePath());
     }
-
+    
     private void openFolder(JTextField field) {
         openFolder(field, null);
     }
-
+    
     private void openFolder(JTextField field, JTextField rootField) {
         String text = field.getText();
         String root = rootField != null ? rootField.getText() : "";
@@ -1109,17 +1119,17 @@ public class Interface extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private String getRecipe() {
         return jtfMagic.getText()
                 .replaceAll("\\s", "")
                 .replaceAll("\\++", "+");
     }
-
+    
     private boolean isMagicAction(ActionEvent evt) {
         return (evt != null && ((evt.getModifiers() & ActionEvent.ALT_MASK) == ActionEvent.ALT_MASK));
     }
-
+    
     private void addMagicAction(STUFF magic) {
         var recipe = getRecipe();
         if (!recipe.isEmpty()) {
@@ -1128,7 +1138,7 @@ public class Interface extends javax.swing.JFrame {
         recipe += magic.name();
         jtfMagic.setText(recipe);
     }
-
+    
     private void makeMagic() {
         var recipe = getRecipe();
         var stuffed = recipe.split("\\+");
@@ -1259,7 +1269,7 @@ public class Interface extends javax.swing.JFrame {
             new Interface().setVisible(true);
         });
     }
-
+    
     public static enum STUFF {
         RUN_PASTE, ADD_LEFT_PASTE, ADD_RIGHT_PASTE, SET_PASTE,
         ADD_LEFT_PART_1, ADD_RIGHT_PART_1, SET_PART_1,
@@ -1270,5 +1280,5 @@ public class Interface extends javax.swing.JFrame {
         RUN_FOLDER, SEL_ROOT, GO_ROOT, SEL_DESTINY, GO_DESTINY,
         RUN_FOLDER_MOVE, RUN_MOVE, SEL_ORIGIN, GO_ORIGIN
     }
-
+    
 }
